@@ -1,0 +1,598 @@
+:root {
+  color-scheme: dark;
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --bg: #090a0f;
+  --bg-gradient: radial-gradient(circle at 10% 0%, rgba(99, 102, 241, 0.14), transparent 40%),
+                      radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.06), transparent 35%),
+                      #090a0f;
+  --panel: rgba(255, 255, 255, 0.08);
+  --panel-hover: rgba(255, 255, 255, 0.14);
+  --panel-active: rgba(255, 255, 255, 0.22);
+  --border: rgba(255, 255, 255, 0.15);
+  --border-light: rgba(255, 255, 255, 0.28);
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --accent: #a8c7fa;
+  --ink: #0b1b33;
+  --ok: #7ddba1;
+  --danger: #f87171;
+  --danger-bg: rgba(248, 113, 113, 0.15);
+  --success: #34d399;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --radius-pill: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Base Glassmorphism utility */
+.glass {
+  backdrop-filter: blur(24px) saturate(180%) contrast(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(120%);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Glass Buttons */
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.16s ease, transform 0.16s var(--ease-spring), border-color 0.16s ease;
+  user-select: none;
+}
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: var(--border-light);
+  transform: translateY(-1px);
+}
+.glass-btn:active {
+  transform: scale(0.98);
+}
+.glass-btn.btn-primary {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+.glass-btn.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+.glass-btn.btn-secondary {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+}
+.glass-btn.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+.glass-btn.btn-danger {
+  background: var(--danger-bg);
+  border-color: rgba(248, 113, 113, 0.4);
+  color: #fca5a5;
+}
+.glass-btn.btn-danger:hover {
+  background: rgba(248, 113, 113, 0.28);
+}
+.glass-btn.btn-sm {
+  padding: 5px 9px;
+  font-size: 11.5px;
+  border-radius: 6px;
+}
+
+/* Glass Inputs & Form Controls */
+.glass-input, .glass-select, .glass-textarea {
+  width: 100%;
+  padding: 9px 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+.glass-input:focus, .glass-select:focus, .glass-textarea:focus {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.35);
+}
+.glass-select {
+  cursor: pointer;
+}
+.glass-select option {
+  background: #14161f;
+  color: #f3f4f6;
+}
+.glass-textarea {
+  resize: vertical;
+}
+
+/* Toast Container & Pill */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10000;
+  pointer-events: none;
+}
+.toast-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(20, 22, 30, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(12px) scale(0.95);
+  transition: opacity 0.2s ease, transform 0.2s var(--ease-spring);
+}
+.toast-pill.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.toast-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+}
+.toast-pill.error .toast-dot {
+  background: var(--danger);
+}
+
+/* Glass Modal Dialogs */
+.glass-modal {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  background: rgba(16, 18, 26, 0.94);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  color: var(--text);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  padding: 0;
+  max-width: 480px;
+  width: 90vw;
+}
+.glass-modal::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.modal-content {
+  padding: 22px;
+}
+.modal-title {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.modal-desc {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Folder Menu Dropdown */
+.folder-menu-dropdown {
+  position: absolute;
+  min-width: 170px;
+  background: rgba(18, 20, 28, 0.96);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+.menu-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.menu-action:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.menu-action.destructive {
+  color: #fca5a5;
+}
+.menu-action.destructive:hover {
+  background: var(--danger-bg);
+}
+.menu-action-section {
+  padding: 6px 10px 4px;
+}
+.menu-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.color-swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.12s var(--ease-spring);
+}
+.color-swatch:hover {
+  transform: scale(1.18);
+}
+.menu-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 4px 0;
+}
+
+/* Save Modal Inner Layout */
+.save-dialog-content {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dialog-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.dialog-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+.dialog-close-btn:hover {
+  color: var(--text);
+}
+.duplicate-warning {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(251, 191, 36, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+}
+.duplicate-warning .warning-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.duplicate-warning .warning-text strong {
+  color: #fef3c7;
+}
+.duplicate-warning .warning-text span {
+  color: #fde68a;
+  font-size: 11px;
+}
+.page-preview-box {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.preview-favicon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.preview-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.preview-title-input {
+  font-weight: 600;
+  padding: 6px 8px;
+}
+.preview-url-input {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 4px 8px;
+}
+.destination-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.dest-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  padding: 8px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.16s ease;
+  text-align: center;
+}
+.dest-tab svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+.dest-tab.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-weight: 600;
+}
+.dest-tab.active svg {
+  color: var(--accent);
+}
+.dest-section {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+.dest-section.visible {
+  display: flex;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-row label {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.folder-select-row {
+  display: flex;
+  gap: 8px;
+}
+.checkbox-row {
+  flex-direction: row;
+  align-items: center;
+}
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: var(--text);
+}
+.article-cover-preview {
+  position: relative;
+  height: 110px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.article-cover-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cover-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  font-size: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2px 7px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+  color: #e5e7eb;
+}
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   SAVE BUTTON REFERENCE COMPONENT (from save-button.html)
+   ========================================================================== */
+
+.save-footer {
+  margin-top: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.save-main-btn {
+  width: 100%;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 14.5px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(168, 199, 250, 0.22);
+  transition: filter 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.save-main-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 6px 20px rgba(168, 199, 250, 0.35);
+}
+
+.save-main-btn:active {
+  transform: scale(0.985);
+}
+
+.save-done-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 6px 10px;
+  border-radius: 12px;
+  background: rgba(125, 219, 161, 0.12);
+  border: 1px solid rgba(125, 219, 161, 0.32);
+}
+
+.save-done-check {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(125, 219, 161, 0.2);
+  color: var(--ok);
+  display: grid;
+  place-items: center;
+}
+
+.save-done-text {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: #f2f5fa;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.save-undo-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-weight: 650;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.save-undo-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.save-progress-bar {
+  height: 2px;
+  margin-top: 6px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.save-progress-bar i {
+  display: block;
+  height: 100%;
+  background: var(--ok);
+  transform-origin: left;
+  animation: save-drain 3.5s linear forwards;
+}
+
+@keyframes save-drain {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}

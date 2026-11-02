@@ -1,0 +1,104 @@
+================================================================================
+MICROSOFT EDGE ADD-ONS LISTING: BOOKMARK GLASS
+================================================================================
+
+--------------------------------------------------------------------------------
+1. ADD-ON NAME (Max 50 characters)
+--------------------------------------------------------------------------------
+Bookmark Glass — Library & Reading Tracker
+
+(Character count: 42 / 50)
+
+
+--------------------------------------------------------------------------------
+2. SHORT DESCRIPTION / SUMMARY (Max 250 characters)
+--------------------------------------------------------------------------------
+Minimal glassmorphic bookmark manager, personal link library, and article reading tracker with live browser sync, tags, notes, and cover images.
+
+(Character count: 144 / 250)
+
+
+--------------------------------------------------------------------------------
+3. CATEGORIES
+--------------------------------------------------------------------------------
+• Productivity
+• Bookmarks
+
+
+--------------------------------------------------------------------------------
+4. DETAILED DESCRIPTION (Store listing for Microsoft Edge Add-ons)
+--------------------------------------------------------------------------------
+Bookmark Glass is a refined bookmark management system that unites your browser bookmarks, a personal web library, and a dedicated article reading tracker into one modern macOS-inspired glassmorphic interface.
+
+Designed for researchers, developers, and creators who want clean organization without visual clutter, Bookmark Glass keeps your native browser bookmarks and your private link library organized while offering a unified dashboard for complete management.
+
+---
+
+### ✨ KEY FEATURES
+
+#### 🔖 Live Browser Bookmark & Favorites Sync
+• Live Browser Synchronization: View, edit, and organize your browser's native bookmark tree. Changes made in Bookmark Glass directly update your browser bookmarks.
+• Dedicated Favorites & Bookmark Bar Manager: Reorder, edit, and organize links on your browser's bookmark bar with drag-and-drop ease.
+• Folder Organization with Visual Accents: Assign customizable glass color accents (Ocean Blue, Cosmic Purple, Emerald, Warm Amber, Rose Quartz, Neon Cyan) to folders without modifying native bookmark structures.
+• Safe Deletions: Built-in child-item count confirmation protects you against accidental deletion of folder contents.
+
+#### 📚 Separate Personal Library
+• Your Personal Link Vault: Save important resources, tools, documentation, and references into your private library without cluttering your browser's bookmark hierarchy.
+• Custom Tags & Detailed Notes: Assign multi-tag labels and rich expandable notes to any link for effortless organization.
+• Favorites: Quick-star your essential links for instant one-click access.
+
+#### 📰 Articles Reading Tracker
+• Track What You Read: Dedicated reading tracker with three distinct statuses: Want to Read, In Progress, and Done Reading.
+• Automatic Read Timestamps: Automatically records timestamps when an article is finished and preserves your reading history.
+• Cover Image Previews: Extracts Open Graph cover images and domain metadata for a clean magazine-style view.
+• Multi-Filter & Sorting Controls: Filter across statuses simultaneously and sort by Newest Saved, Oldest Saved, Recently Read, or Oldest Read.
+
+#### ✦ Compact Glass Extension Popup
+• 4-Action Navigation Bar:
+  - Home: Launches the full management dashboard in a new tab.
+  - Files: Browse your entire browser bookmark folder tree with instant breadcrumb navigation, drag-and-drop folder movement, and search.
+  - Save: Open the smart quick-save drawer for the active webpage.
+  - Change Layout: Cycle between Grid, List, and Title views on the fly.
+
+#### ⚡ Smart Quick-Save with Duplicate Detection
+• Active Tab Detection: Automatically pulls page title, URL, favicon, domain, and cover metadata from your active tab.
+• Destination Picker: Choose where each item belongs: Browser Bookmarks, Personal Library, or Articles Tracker.
+• Duplicate URL Warning: Alerts you if the current URL has already been saved, with options to open the existing item or save anyway.
+• Inline Folder Creation: Create new bookmark or library folders on the fly directly inside the save interface.
+• Instant Undo: One-click undo action directly after saving.
+
+#### 🔍 Unified Global Search
+• Keyboard-friendly search across Browser Bookmarks, Personal Library links, Saved Articles, and Folders simultaneously, complete with source badges.
+
+#### 📐 Independent Layout Preferences
+• Customize your display with Grid View, List View, or Title View independently—keep your extension popup compact in Grid view while viewing your full dashboard in List view.
+
+#### 💾 Local Backup & Export
+• Export your full library, reading list, custom folders, folder color accents, and settings to a JSON backup at any time.
+
+---
+
+### 🔒 PRIVACY & SECURITY FIRST
+
+• 100% Local-First Storage: All personal library links, reading history, notes, tags, and settings are stored locally on your device using browser extension storage (chrome.storage.local).
+• Zero Telemetry & Zero Analytics: Bookmark Glass does not use Google Analytics, telemetry libraries, tracking beacons, or remote logging services.
+• Native Local Favicons: Website icons (favicons) are retrieved entirely locally from the browser's native internal cache (via Chromium's /_favicon/ endpoint). No website URLs, domains, or IP addresses are sent to external third-party services.
+• Complete Data Control: Deleting items or uninstalling the extension completely purges all local data immediately.
+
+---
+
+### ⌨️ KEYBOARD SHORTCUTS
+
+• Ctrl+Shift+L (Command+Shift+L on macOS): Open the Bookmark Glass management dashboard directly from anywhere.
+
+---
+
+### 🛡️ PERMISSIONS EXPLAINED
+
+• bookmarks: Required to view, create, organize, and reorder your browser's native bookmark and favorites hierarchy.
+• storage: Used to persist your personal library, article reading status, notes, tags, and layout preferences locally on your computer.
+• activeTab: Used to read the current tab URL and title strictly when you invoke the extension popup or save drawer.
+• scripting: Used on-demand to extract Open Graph cover images and page descriptions for saved articles.
+• contextMenus: Provides quick right-click shortcut options to save links or pages to Bookmark Glass.
+• favicon: Allows the extension to display website icons locally from the browser's internal cache without external network requests.
+

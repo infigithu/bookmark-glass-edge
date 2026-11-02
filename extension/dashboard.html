@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmark Glass — Unified Management Dashboard</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <!-- Slim Feedback Banner -->
+  <aside class="feedback-banner" aria-label="Development feedback">
+    <div class="feedback-banner-content">
+      <span class="feedback-banner-icon">✨</span>
+      <span class="feedback-banner-text">This extension is still in development. Please share your feedback and suggestions!</span>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSDRgCe1tzGu6aKoj6ALDh8oPdtmjLEdaAfl3sD1eHCkv7kA/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="feedback-banner-btn">
+        <span>Share Feedback</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <div class="app-layout">
+    <!-- Desktop Glass Sidebar -->
+    <aside class="sidebar glass" aria-label="Main Navigation">
+      <div class="sidebar-header">
+        <div class="app-brand">
+          <span class="brand-spark">✦</span>
+          <span class="brand-name">Bookmark Glass</span>
+        </div>
+        <span class="version-badge">v1.0</span>
+      </div>
+
+      <!-- Navigation Section -->
+      <nav class="nav-group">
+        <button class="nav-item active" data-section="all-bookmarks" id="nav-all">
+          <span class="nav-icon">🔖</span>
+          <span class="nav-label">All Bookmarks</span>
+          <span class="nav-badge" id="badge-all">0</span>
+        </button>
+
+        <button class="nav-item" data-section="bookmark-bar" id="nav-bar">
+          <span class="nav-icon">⭐</span>
+          <span class="nav-label">Bookmark Bar</span>
+          <span class="nav-badge" id="badge-bar">0</span>
+        </button>
+
+        <button class="nav-item" data-section="folders" id="nav-folders">
+          <span class="nav-icon">📁</span>
+          <span class="nav-label">Folders</span>
+          <span class="nav-badge" id="badge-folders">0</span>
+        </button>
+
+        <div class="nav-separator"></div>
+
+        <div class="nav-section-title">Personal Storage</div>
+
+        <button class="nav-item" data-section="my-library" id="nav-library">
+          <span class="nav-icon">📚</span>
+          <span class="nav-label">My Library</span>
+          <span class="nav-badge" id="badge-library">0</span>
+        </button>
+
+        <button class="nav-item" data-section="articles" id="nav-articles">
+          <span class="nav-icon">📰</span>
+          <span class="nav-label">Articles</span>
+          <span class="nav-badge" id="badge-articles">0</span>
+        </button>
+
+        <div class="nav-separator"></div>
+
+        <button class="nav-item" data-section="settings" id="nav-settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Quick Folders List -->
+      <div class="sidebar-folders-pane">
+        <div class="folders-header">
+          <span>Browser Folders</span>
+          <button class="icon-btn-sm" id="sidebar-add-chrome-folder" title="Add Folder">+</button>
+        </div>
+        <div class="folders-list" id="sidebar-folders-list">
+          <!-- Dynamically filled -->
+        </div>
+      </div>
+
+      <!-- User / Storage Indicator Footer -->
+      <div class="sidebar-footer">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-text">Browser Sync Active</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Stage -->
+    <main class="main-stage">
+      <!-- Global Top Header Bar -->
+      <header class="top-header glass">
+        <!-- Global Search Field -->
+        <div class="global-search-container">
+          <svg class="search-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
+          </svg>
+          <input type="text" id="global-search" placeholder="Search across Bookmarks, Library, Articles & Folders..." autocomplete="off">
+          <button id="search-clear-btn" class="search-clear-icon" style="display: none;">&times;</button>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <!-- Layout Switcher Button for Dashboard -->
+          <div class="layout-toggle-group" id="dashboard-layout-group">
+            <button class="layout-btn" data-layout="list" title="List View">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm0 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm0 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Z" clip-rule="evenodd"/></svg>
+            </button>
+            <button class="layout-btn active" data-layout="grid" title="Grid View">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.25 2A2.25 2.25 0 0 0 2 4.25v2.5A2.25 2.25 0 0 0 4.25 9h2.5A2.25 2.25 0 0 0 9 6.75v-2.5A2.25 2.25 0 0 0 6.75 2h-2.5Zm0 9A2.25 2.25 0 0 0 2 13.25v2.5A2.25 2.25 0 0 0 4.25 18h2.5A2.25 2.25 0 0 0 9 15.75v-2.5A2.25 2.25 0 0 0 6.75 11h-2.5Zm9-9A2.25 2.25 0 0 0 11 4.25v2.5A2.25 2.25 0 0 0 13.25 9h2.5A2.25 2.25 0 0 0 18 6.75v-2.5A2.25 2.25 0 0 0 15.75 2h-2.5Zm0 9A2.25 2.25 0 0 0 11 13.25v2.5A2.25 2.25 0 0 0 13.25 18h2.5A2.25 2.25 0 0 0 18 15.75v-2.5A2.25 2.25 0 0 0 15.75 11h-2.5Z" clip-rule="evenodd"/></svg>
+            </button>
+            <button class="layout-btn" data-layout="title" title="Title View">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Zm0 5.25a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"/></svg>
+            </button>
+          </div>
+
+          <button class="glass-btn btn-primary" id="btn-save-new">
+            <span>+ Save Link</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Section Title & Contextual Control Bar -->
+      <section class="context-bar">
+        <div class="context-title-wrap">
+          <h1 class="context-title" id="section-heading">All Bookmarks</h1>
+          <p class="context-subtitle" id="section-subtext">Browsing all synchronized browser bookmarks</p>
+        </div>
+
+        <!-- Dynamic Controls (e.g. Articles Filter Bar, Folders Actions, etc.) -->
+        <div class="context-actions" id="section-controls">
+          <!-- Dynamically populated based on active section -->
+        </div>
+      </section>
+
+      <!-- Global Search Results Pane (shown during global search) -->
+      <section class="content-view search-results-view" id="view-search-results" style="display: none;">
+        <div class="results-header">
+          <span class="results-count" id="search-results-count">0 matches</span>
+          <button class="glass-btn btn-sm btn-secondary" id="search-close-results">Exit Search</button>
+        </div>
+        <div class="results-list" id="search-results-list"></div>
+      </section>
+
+      <!-- Primary Content Views Container -->
+      <section class="content-view" id="view-primary">
+        <div class="items-grid-wrapper layout-grid" id="items-grid-wrapper">
+          <!-- Injected items -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

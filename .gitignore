@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build artifacts & packages
+dist/
+build/
+*.zip
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Environment & secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Temporary debug / scratch directories
+scratch/
+*.log

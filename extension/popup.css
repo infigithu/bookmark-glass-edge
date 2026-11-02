@@ -1,0 +1,1213 @@
+/* ==========================================================================
+   POPUP CONTAINER & SHELL
+   ========================================================================== */
+
+html {
+  width: 420px;
+  height: 580px;
+  background: #090a0f;
+  border-radius: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+body {
+  width: 420px;
+  height: 580px;
+  max-height: 580px;
+  margin: 0;
+  padding: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: radial-gradient(120% 60% at 20% 0, #171b3b 0, #090a0f 62%);
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.popup-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: radial-gradient(120% 60% at 20% 0, #171b3b 0, var(--bg) 62%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Header */
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-logo {
+  font-size: 15px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #f2f5fa;
+}
+
+/* Layout Switcher (from Extension UI.html & screenshot) */
+.layouts {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: opacity 0.2s ease;
+}
+
+.layouts button {
+  width: 30px;
+  height: 26px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.layouts button svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.layouts button:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.layouts button[aria-pressed="true"],
+.layouts button.active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.layouts.off {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Main Content Area */
+.popup-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Search Box */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 12px;
+  flex-shrink: 0;
+  margin-bottom: 8px;
+  transition: border-color 0.16s ease;
+}
+
+.search-box:focus-within {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.search-icon {
+  width: 15px;
+  height: 15px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 12.5px;
+  outline: none;
+}
+
+.search-box input::placeholder {
+  color: #6b7280;
+}
+
+.clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+/* Breadcrumb Trail */
+.breadcrumb-trail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--muted);
+  padding: 2px 2px 8px;
+  flex-shrink: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.crumb-link {
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.14s ease;
+  text-decoration: none;
+}
+
+.crumb-link:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.crumb-sep {
+  opacity: 0.4;
+  font-size: 10px;
+}
+
+.crumb-current {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Scroll Area */
+.bookmark-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding-bottom: 80px; /* space for bottom floating menu */
+  padding-right: 2px;
+}
+
+/* ==========================================================================
+   BOOKMARK LAYOUTS (LIST, GRID, TITLE)
+   ========================================================================== */
+
+.bookmarks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 1. LIST VIEW */
+.layout-list .bookmarks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.layout-list .bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s var(--ease-spring);
+}
+
+.layout-list .bookmark-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.layout-list .bookmark-item.is-folder {
+  background: rgba(255, 255, 255, 0.035);
+  border-style: dashed;
+}
+
+.layout-list .item-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.layout-list .item-icon img {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+.layout-list .item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.layout-list .item-title {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.layout-list .item-sub {
+  font-size: 10.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+/* 2. GRID VIEW */
+.layout-grid .bookmarks-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.layout-grid .bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  min-height: 52px;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s var(--ease-spring);
+}
+
+.layout-grid .bookmark-item:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.layout-grid .bookmark-item.is-folder {
+  background: rgba(255, 255, 255, 0.035);
+  border-style: dashed;
+}
+
+.layout-grid .item-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.layout-grid .item-icon img {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.layout-grid .item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.layout-grid .item-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.layout-grid .item-sub {
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+/* 3. TITLE VIEW */
+.layout-title .bookmarks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.layout-title .bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.12s ease, transform 0.12s var(--ease-spring);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.layout-title .bookmark-item:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(2px);
+}
+
+.layout-title .bookmark-item.is-folder {
+  color: #93c5fd;
+}
+
+.layout-title .item-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.layout-title .item-icon img {
+  width: 14px;
+  height: 14px;
+}
+
+.layout-title .item-content {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.layout-title .item-title {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.layout-title .item-sub {
+  display: none;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+  gap: 8px;
+}
+
+.empty-icon {
+  font-size: 26px;
+  opacity: 0.6;
+}
+
+.empty-text {
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   POPUP SAVE VIEW PANEL (Matching reference save-button.html)
+   ========================================================================== */
+
+.popup-save-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px 74px;
+  overflow: hidden;
+  gap: 10px;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.popup-save-panel.saved .save-pane,
+.popup-save-panel.saved .save-tabs {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Page Header: Favicon + Editable Title & URL + Close */
+.save-page-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.save-fav {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.save-fav img {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+}
+
+.save-fav .fav-letter {
+  font-size: 20px;
+  font-weight: 750;
+  color: var(--accent);
+  background: transparent;
+  line-height: 1;
+}
+
+.save-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.save-ed {
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 2px 6px;
+  margin-left: -6px;
+  text-overflow: ellipsis;
+  color: var(--text);
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+
+.save-ed:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.save-ed:focus {
+  outline: 0;
+  border-color: var(--accent);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.save-ed-title {
+  font-weight: 650;
+  font-size: 14.5px;
+}
+
+.save-ed-url {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.save-ed-url:focus {
+  color: var(--text);
+}
+
+.save-close-btn {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.save-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+/* Tabs */
+.save-tabs {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.save-tabs button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  border-radius: 9px;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 550;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.save-tabs button svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.save-tabs button[aria-selected="true"],
+.save-tabs button.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text);
+}
+
+.save-tabs button[aria-selected="true"] svg,
+.save-tabs button.active svg {
+  color: var(--accent);
+}
+
+/* Pane */
+.save-pane {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 2px;
+}
+
+.save-lab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  min-height: 22px;
+}
+
+/* Tree rows for Bookmarks */
+.save-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.save-tr {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.save-tr:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.save-tr.sel {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.save-tr .ch {
+  width: 24px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.save-tr .ch svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.12s ease;
+}
+
+.save-tr .ch.open svg {
+  transform: rotate(90deg);
+}
+
+.save-tr .ch.none {
+  visibility: hidden;
+}
+
+.save-tr .nm {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  text-align: left;
+  min-width: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 12.5px;
+}
+
+.save-tr .nm svg {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.save-tr.sel .nm svg {
+  color: var(--accent);
+}
+
+.save-tr .nm span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.save-row-more {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 10px;
+  width: 100%;
+  color: var(--accent);
+  background: rgba(15, 19, 26, 0.7);
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 500;
+  margin-top: 6px;
+  justify-content: center;
+  transition: background 0.12s ease;
+}
+
+.save-row-more:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.save-row-more svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Chips */
+.save-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.save-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s ease, background 0.15s ease, padding 0.15s ease;
+}
+
+.save-chip:hover {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.save-chip[aria-pressed="true"],
+.save-chip.active {
+  background: rgba(168, 199, 250, 0.18);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 550;
+}
+
+/* Small cross icon on hover to remove tag */
+.save-chip .chip-del {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 16px;
+  border-radius: 50%;
+  margin-left: -2px;
+  opacity: 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--muted);
+  overflow: hidden;
+  pointer-events: none;
+  transition: width 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease, margin 0.15s ease, color 0.12s ease, background 0.12s ease;
+}
+
+.save-chip:hover .chip-del {
+  width: 16px;
+  margin-left: 2px;
+  opacity: 0.75;
+  pointer-events: auto;
+}
+
+.save-chip .chip-del:hover {
+  opacity: 1;
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.22);
+}
+
+.save-mini-in {
+  height: 28px;
+  width: 96px;
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 0 11px;
+  font-size: 12px;
+  color: var(--text);
+  outline: none;
+  font-family: inherit;
+}
+
+.save-mini-in:focus {
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.save-plus-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  cursor: pointer;
+  transition: background 0.14s ease;
+}
+
+.save-plus-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.save-plus-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.save-pane textarea {
+  width: 100%;
+  min-height: 68px;
+  max-height: 220px;
+  height: 68px;
+  resize: vertical;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+  line-height: 1.4;
+  color: var(--text);
+  font-size: 12px;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.save-pane textarea:focus {
+  outline: 0;
+  border-color: var(--accent);
+}
+
+/* Drag and drop folder & item moving */
+.bookmark-item[draggable="true"] {
+  cursor: grab;
+}
+
+.bookmark-item.dragging,
+.save-tr.dragging {
+  opacity: 0.45;
+  transform: scale(0.97);
+  cursor: grabbing !important;
+}
+
+.bookmark-item.drag-over,
+.save-tr.drag-over,
+.crumb-link.drag-over {
+  background: rgba(168, 199, 250, 0.24) !important;
+  border-color: var(--accent) !important;
+  outline: 2px dashed var(--accent) !important;
+  outline-offset: -2px;
+  border-radius: 10px;
+  transform: scale(1.02);
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.save-star {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12.5px;
+  height: 26px;
+  border-radius: 8px;
+  padding: 0 6px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.15s ease;
+}
+
+.save-star svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+}
+
+.save-star[aria-pressed="true"],
+.save-star.active {
+  color: #f5c451;
+}
+
+.save-star[aria-pressed="true"] svg,
+.save-star.active svg {
+  fill: #f5c451;
+  stroke: #f5c451;
+}
+
+/* Reading status segmented */
+.save-seg {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+}
+
+.save-seg button {
+  flex: 1;
+  height: 32px;
+  border-radius: 9px;
+  font-size: 12px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-weight: 500;
+}
+
+.save-seg button[aria-pressed="true"],
+.save-seg button.active {
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 650;
+}
+
+/* Save Footer */
+.save-foot {
+  position: relative;
+  margin-top: auto;
+  padding-top: 6px;
+  flex-shrink: 0;
+}
+
+.save-foot .save-main-btn {
+  width: 100%;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(168, 199, 250, 0.22);
+  transition: filter 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.save-foot .save-main-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 6px 20px rgba(168, 199, 250, 0.35);
+}
+
+.save-foot .save-main-btn:active {
+  transform: scale(0.985);
+}
+
+.popup-save-panel.saved .save-foot .save-main-btn {
+  display: none !important;
+}
+
+.popup-save-panel.saved .save-foot .save-done-state {
+  display: flex !important;
+}
+
+.popup-save-panel.saved .save-foot .save-progress-bar {
+  display: block !important;
+}
+
+@keyframes save-drain {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* ==========================================================================
+   SETTINGS PANEL (Exact center icon & text matching screenshot)
+   ========================================================================== */
+
+.popup-settings-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-bottom: 74px;
+  box-sizing: border-box;
+}
+
+.settings-center-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.settings-center-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--muted);
+  opacity: 0.8;
+  display: block;
+}
+
+.settings-center-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   NAVIGATION MENU (Refined from reference Extension UI.html)
+   ========================================================================== */
+
+.popup-footer {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 100;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.menu {
+  pointer-events: auto;
+  position: relative;
+  width: 100%;
+  max-width: 396px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  box-sizing: border-box;
+
+  /* Glassmorphism from reference */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.menu a {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 550;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+}
+
+.menu a svg {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  display: block;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.menu a span {
+  font-size: 10px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.menu a:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.10);
+  transform: translateY(-1px);
+}
+
+.menu a:active {
+  transform: scale(0.96);
+}
+
+.menu a.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu a.active svg {
+  color: var(--accent);
+}
+
+.menu .nav-sep {
+  width: 1px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+.menu .nav-icon-btn {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+
+.menu .nav-icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.menu .nav-icon-btn:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.10);
+  transform: translateY(-1px);
+}
+
+.menu .nav-icon-btn.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu .nav-icon-btn.active svg {
+  color: var(--accent);
+}

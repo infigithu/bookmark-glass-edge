@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Bookmark Glass</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: rgba(22, 27, 34, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-glow: rgba(88, 166, 255, 0.15);
+      --success: #3fb950;
+      --warning: #d29922;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(88, 166, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(63, 185, 80, 0.06) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 820px;
+      width: 100%;
+    }
+
+    header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent);
+    }
+
+    .brand-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .effective-date {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: rgba(88, 166, 255, 0.1);
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .pill.success {
+      background: rgba(63, 185, 80, 0.1);
+      border-color: rgba(63, 185, 80, 0.25);
+      color: var(--success);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #c9d1d9;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 14px;
+      color: #c9d1d9;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    td code {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: var(--accent);
+    }
+
+    .highlight-box {
+      border-left: 3px solid var(--accent);
+      background: rgba(88, 166, 255, 0.05);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <span class="brand-name">Bookmark Glass</span>
+      </div>
+      <h1>Privacy Policy</h1>
+      <div class="effective-date">Effective Date: October 30, 2026</div>
+      <div class="pill-group">
+        <span class="pill success">Local-First Storage</span>
+        <span class="pill success">No User Tracking</span>
+        <span class="pill success">No Account Required</span>
+        <span class="pill">Open & Transparent</span>
+      </div>
+    </header>
+
+    <div class="card">
+      <h2>1. Overview & Core Philosophy</h2>
+      <p>
+        <strong>Bookmark Glass</strong> is designed with privacy-first principles. We believe that your bookmarks, personal reading list, and web habits belong strictly to you. 
+      </p>
+      <p>
+        The extension operates primarily offline on your device. We do not maintain any user databases, cloud servers, or authentication systems. You do not need to create an account or provide an email address to use Bookmark Glass.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>2. What Data Is Stored Locally on Your Device</h2>
+      <p>All data created or organized in Bookmark Glass is saved locally in your browser:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Data Category</th>
+            <th>Storage Mechanism</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Browser Bookmarks</strong></td>
+            <td><code>browser.bookmarks</code> / <code>chrome.bookmarks</code></td>
+            <td>Syncs directly with your browser's native bookmark and folder system.</td>
+          </tr>
+          <tr>
+            <td><strong>Personal Library Links</strong></td>
+            <td><code>chrome.storage.local</code> (key: <code>my_library_links</code>)</td>
+            <td>Stores saved links, custom titles, tags, notes, and favorite flags.</td>
+          </tr>
+          <tr>
+            <td><strong>Articles & Reading List</strong></td>
+            <td><code>chrome.storage.local</code> (key: <code>my_articles_library</code>)</td>
+            <td>Stores articles with reading statuses (Want to Read, Reading, Completed) and reading notes.</td>
+          </tr>
+          <tr>
+            <td><strong>Folders & Visual Metadata</strong></td>
+            <td><code>chrome.storage.local</code> (keys: <code>custom_library_folders</code>, <code>folder_visual_metadata</code>)</td>
+            <td>Stores custom library folder hierarchies and visual folder color selections.</td>
+          </tr>
+          <tr>
+            <td><strong>User Settings & Preferences</strong></td>
+            <td><code>chrome.storage.local</code> (key: <code>bookmark_glass_settings</code>)</td>
+            <td>Stores layout preferences (grid vs. list), theme preference (dark/light), and display options.</td>
+          </tr>
+          <tr>
+            <td><strong>Recent Tags Cache</strong></td>
+            <td><code>localStorage</code> (keys: <code>bg-tagpool-lib</code>, <code>bg-tagpool-art</code>)</td>
+            <td>Stores section-specific tag pools for Library and Articles quick-tagging convenience.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>3. External Requests & Third-Party Services</h2>
+      <p>
+        Bookmark Glass is built with a strict local-first architecture and does not transmit your personal data, bookmarks, saved notes, or reading history to any proprietary servers or third-party tracking services.
+      </p>
+
+      <div class="highlight-box">
+        <strong>Native Favicon Resolution (Zero Third-Party Transmission):</strong>
+        <p style="margin-top: 6px; margin-bottom: 0;">
+          Website icons (favicons) are retrieved entirely locally through the browser's native internal cache using Chromium's extension favicon endpoint (<code>/_favicon/</code>) enabled by the <code>favicon</code> permission. No URLs, domain names, or IP addresses are sent to any external icon service.
+        </p>
+      </div>
+
+      <p style="margin-top: 14px;">
+        <strong>Voluntary Feedback Form:</strong> The extension dashboard includes an optional feedback banner linking to a Google Form. Clicking "Share Feedback" opens the form in a new tab. Submitting feedback is completely voluntary and handled directly on Google Forms.
+      </p>
+
+      <p>
+        <strong>No Telemetry or Tracking:</strong> We do not integrate Google Analytics, Mixpanel, Sentry, or any third-party telemetry, tracking, or advertising scripts.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>4. Browser Permissions Used</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Permission</th>
+            <th>Why It Is Needed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>bookmarks</code></td>
+            <td>To read existing browser bookmarks and save new bookmarks to your native bookmark folders.</td>
+          </tr>
+          <tr>
+            <td><code>storage</code></td>
+            <td>To store your personal library links, reading list articles, and layout settings locally.</td>
+          </tr>
+          <tr>
+            <td><code>contextMenus</code></td>
+            <td>To provide convenient right-click options ("Save to Bookmark Glass", "Save to My Library").</td>
+          </tr>
+          <tr>
+            <td><code>activeTab</code></td>
+            <td>To obtain the active tab's title and URL strictly when you click the extension action or trigger a save.</td>
+          </tr>
+          <tr>
+            <td><code>scripting</code></td>
+            <td>To inspect the active page's metadata (description and OpenGraph image) when initiating a save.</td>
+          </tr>
+          <tr>
+            <td><code>favicon</code></td>
+            <td>To retrieve website icons locally from the browser's internal cache without transmitting data to external servers.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>5. Data Retention, Control & Deletion</h2>
+      <ul>
+        <li>
+          <strong>Individual Items:</strong> You can edit or delete any saved bookmark, library link, article, tag, or folder at any time directly through the Bookmark Glass interface.
+        </li>
+        <li>
+          <strong>Complete Erasure:</strong> To delete all data associated with Bookmark Glass, simply uninstall the extension from your browser (via <code>edge://extensions</code>). Uninstalling immediately purges all local storage.
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>6. Contact & Updates</h2>
+      <p>
+        If this Privacy Policy is updated, the revision date at the top will be updated accordingly. If you have questions regarding this policy or the extension's privacy practices, please contact the developer via the GitHub repository or the official extension listing page.
+      </p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Bookmark Glass. Free and open software built for privacy and productivity.</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Bookmark Glass",
+  "version": "0.1.0",
+  "description": "A fast glassmorphism launcher and personal bookmark library.",
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "tabs",
+    "contextMenus"
+  ],
+  "action": {
+    "default_title": "Bookmark Glass",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "commands": {
+    "open-dashboard": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+B",
+        "mac": "MacCtrl+Shift+B"
+      },
+      "description": "Open Bookmark Glass dashboard"
+    }
+  },
+  "icons": {
+    "16": "icon-16.svg",
+    "32": "icon-32.svg",
+    "48": "icon-48.svg",
+    "128": "icon-128.svg"
+  }
+}

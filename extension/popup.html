@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmark Glass</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-wrapper">
+    <!-- Header with Brand and Top-Right Layout Switcher (matching screenshot & reference) -->
+    <header class="popup-header">
+      <div class="header-left">
+        <span class="header-logo">✦</span>
+        <span class="header-title">Bookmark Glass</span>
+      </div>
+      <div class="layouts" id="layouts" role="group" aria-label="Layout">
+        <button data-l="title" title="Title View" aria-label="Title View" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"/></svg>
+        </button>
+        <button data-l="list" title="List View" aria-label="List View" aria-pressed="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>
+        </button>
+        <button data-l="grid" title="Grid View" aria-label="Grid View" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Content Area: Files / Bookmarks Explorer -->
+    <main class="popup-main" id="view-files">
+      <!-- Search Bar -->
+      <div class="search-box">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
+        </svg>
+        <input type="text" id="popup-search" placeholder="Search title, URL, or folder..." autocomplete="off">
+        <button id="search-clear" class="clear-btn" title="Clear search" style="display: none;">&times;</button>
+      </div>
+
+      <!-- Navigation Breadcrumb Trail -->
+      <nav class="breadcrumb-trail" id="breadcrumb-trail" aria-label="Breadcrumb">
+        <!-- Injected dynamically: Home / Folder / Subfolder -->
+      </nav>
+
+      <!-- Bookmark Nodes List / Grid / Title View -->
+      <div class="bookmark-scroll-area">
+        <div class="bookmarks-container" id="bookmarks-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Save View Panel (Exact structure from save-button.html) -->
+    <section class="popup-save-panel" id="view-save" style="display: none;">
+      <!-- Dynamically filled with quick save interface -->
+    </section>
+
+    <!-- Settings View Panel (Exact structure from screenshot) -->
+    <section class="popup-settings-panel" id="view-settings" style="display: none;">
+      <div class="settings-center-box">
+        <svg class="settings-center-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>
+        </svg>
+        <span class="settings-center-text">Settings soon</span>
+        <button class="glass-btn btn-sm" id="btn-open-dashboard-settings" style="margin-top: 14px;">Open Dashboard Settings ↗</button>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation Bar (Matching screenshot: Home, Files, Save, Sep, Settings) -->
+    <footer class="popup-footer">
+      <div class="menu">
+        <a href="#home" id="nav-home" title="Open Dashboard in new tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 11 9-8 9 8"/>
+            <path d="M5 10v10h5v-6h4v6h5V10"/>
+          </svg>
+          <span>Home</span>
+        </a>
+
+        <a href="#files" class="active" id="nav-files" title="Browse Bookmarks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h7l2 2h9v11H3z"/>
+          </svg>
+          <span>Files</span>
+        </a>
+
+        <a href="#save" id="nav-save" title="Save current webpage">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3h12v18l-6-4-6 4z"/>
+          </svg>
+          <span>Save</span>
+        </a>
+
+        <span class="nav-sep"></span>
+
+        <a href="#settings" class="nav-icon-btn" id="nav-settings" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
